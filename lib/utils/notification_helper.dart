@@ -15,7 +15,7 @@ final didReceiveLocalNotificationSubject =
 class NotificationHelper {
   static const _channelId = "01";
   static const _channelName = "channel_01";
-  static const _channelDesc = "dicoding channel";
+  static const _channelDesc = "andiez channel";
   static NotificationHelper? _instance;
 
   NotificationHelper._internal() {
@@ -363,6 +363,31 @@ class NotificationHelper {
       'notification with attachment title',
       'notification with attachment body',
       notificationDetails,
+    );
+  }
+
+  Future<void> showPeriodicallyNotification(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        _channelId, _channelName,
+        channelDescription: _channelDesc,
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: 'ticker');
+
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+
+    var platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics,
+    );
+
+    await flutterLocalNotificationsPlugin.periodicallyShow(
+      0,
+      'plain title',
+      'periodic notification',
+      RepeatInterval.everyMinute,
+      platformChannelSpecifics,
+      payload: 'periodic notification',
     );
   }
 

@@ -91,6 +91,14 @@ class _HomePageState extends State<HomePage> {
                      flutterLocalNotificationsPlugin);
                },
              ),
+             SizedBox(height: 10),
+             CustomButton(
+               text: 'Show periodic notification [Android]',
+               onPressed: () async {
+                 await _notificationHelper.showPeriodicallyNotification(
+                     flutterLocalNotificationsPlugin);
+               },
+             ),
            ],
          ),
        ),
